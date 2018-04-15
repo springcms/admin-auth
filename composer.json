@@ -1,0 +1,15 @@
+{
+    "name": "springcms/admin-auth",
+    "description": "Auth for admin tables",
+    "license": "1.0",
+    "authors": [
+        {
+            "name": "SpringComplete",
+            "email": "vietopenweb@gmail.net"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+         "jeroennoten/laravel-adminlte": "^1.23"
+    }
+}
