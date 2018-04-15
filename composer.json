@@ -11,5 +11,10 @@
     "minimum-stability": "dev",
     "require": {
          "jeroennoten/laravel-adminlte": "^1.23"
+    },
+	"autoload": {
+        "psr-4": {          
+           "SpringCms\\AdminAuth\\" : "src/"     
+        }
     }
 }
