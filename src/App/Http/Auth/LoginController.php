@@ -39,27 +39,14 @@ class LoginController extends SpringAdminBaseController
      */
     public function __construct()
     {
-        $this->middleware('guest:apicustom')->except('logout');
+        $this->middleware('guest:admin')->except('logout');
       
     }
     
     protected function guard()
     {
-        return Auth::guard('auth:apicustom');
+        return Auth::guard('admin');
     }
-
-     public function login(Guard $auth_guard)
-      {
-        if ($this->guard()->validate()) {
-          // get the current authenticated user
-          $user = $auth_guard->user();
-         
-          echo 'Success!';
-        } else {
-          echo 'Not authorized to access this page!';
-        }
-      }
-
 
     /**
      * Get the login username to be used by the controller.

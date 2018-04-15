@@ -19,7 +19,7 @@ class HomeController extends SpringAdminBaseController
      */
     public function __construct()
     {
-        $this->middleware('auth:apicustom');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -32,7 +32,7 @@ class HomeController extends SpringAdminBaseController
     {
         return Validator::make($data, [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'username' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }

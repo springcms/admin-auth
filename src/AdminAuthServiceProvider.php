@@ -28,25 +28,6 @@ class AdminAuthServiceProvider extends ServiceProvider
         $this->loadRoutes();       
         $this->loadMigrations();
 
-
-        $this->app->bind('SpringCms\AdminAuth\Contracts\ApiDatabase', function ($app) {
-          return new ApiDatabase();
-        });
-         
-        $this->app->bind('SpringCms\AdminAuth\Models\ApiUser', function ($app) {
-          return new ApiUser($app->make('SpringCms\AdminAuth\Contracts\ApiDatabase'));
-        });
-     
-        // add custom guard provider
-        Auth::provider('apispring', function ($app, array $config) {
-          return new ApiUserProvider($app->make('SpringCms\AdminAuth\Models\ApiUser'));
-        });
-     
-        // add custom guard
-        Auth::extend('apijson', function ($app, $name, array $config) {
-          return new ApiGuard(Auth::createUserProvider($config['provider']), $app->make('request'));
-        });
-        
         // $router->middleware('admin', 'SpringCms\AdminAuth\App\Http\Middleware\AdminAuthenticate');
  
     }
@@ -104,9 +85,5 @@ class AdminAuthServiceProvider extends ServiceProvider
         //
         //include __DIR__.'/routes/web.php';
 
-        $this->app->bind(
-          'SpringCms\AdminAuth\Contracts\ApiServiceInterface',
-          'SpringCms\AdminAuth\Contracts\ApiDatabase'
-        );
     }
 }
