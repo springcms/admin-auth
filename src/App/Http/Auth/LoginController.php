@@ -2,7 +2,7 @@
 
 namespace SpringCms\AdminAuth\App\Http\Auth;
 
-use SpringCms\AdminAuth\App\Http\SpringAdminBaseController;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
@@ -10,7 +10,7 @@ use Illuminate\Validation\ValidationException;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Contracts\Auth\Guard;
 
-class LoginController extends SpringAdminBaseController
+class LoginController extends Controller
 {
     /*
     |--------------------------------------------------------------------------
@@ -62,6 +62,20 @@ class LoginController extends SpringAdminBaseController
     public function showlogin($value='')
     {  
         return view('adminspringcms::auth.login');
+    }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $this->guard('admin')->logout();
+
+        $request->session()->invalidate();
+        return redirect('/admin/login');
     }
 
     

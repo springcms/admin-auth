@@ -15,6 +15,8 @@ use SpringCms\AdminAuth\Models\ApiUser;
 
 class AdminAuthServiceProvider extends ServiceProvider
 {
+    
+    private $_packageTag = 'adminspringcms';
     /**
      * Bootstrap services.
      *
@@ -27,6 +29,7 @@ class AdminAuthServiceProvider extends ServiceProvider
         $this->loadViews();
         $this->loadRoutes();       
         $this->loadMigrations();
+        $this->loadTranslations();
 
         // $router->middleware('admin', 'SpringCms\AdminAuth\App\Http\Middleware\AdminAuthenticate');
  
@@ -35,32 +38,40 @@ class AdminAuthServiceProvider extends ServiceProvider
     private function loadViews()
     {
         $viewsPath = $this->packagePath('resources/views'); 
-        $this->loadViewsFrom($viewsPath, 'adminspringcms');
+        $this->loadViewsFrom($viewsPath, $this->_packageTag);
 
     }
     private function publishConfig()
     {
         $configPath = $this->packagePath('config/auth.php');
         $this->mergeConfigFrom($configPath, 'auth');
+        //$configPath = $this->packagePath('config/adminlte.php');
+        //$this->mergeConfigFrom($configPath, 'adminlte');
         $configPath = $this->packagePath('config/adminspringcms.php');       
-        $this->mergeConfigFrom($configPath, 'adminspringcms');
-        //$configPath = $this->packagePath('config/adminlte.php');       
-        //$this->mergeConfigFrom($configPath, 'adminspringcms');
+        $this->mergeConfigFrom($configPath, $this->_packageTag);
     }
-    private function loadMigrations($value='')
+    private function loadMigrations()
     {
         $viewsPath = $this->packagePath('migrations'); 
-        $this->loadMigrationsFrom($viewsPath, 'adminspringcms');
+        $this->loadMigrationsFrom($viewsPath, $this->_packageTag);
     }
-    private function loadRoutes($value='')
+    private function loadRoutes()
     {
        $routesPath = $this->packagePath('src/routes/admin.php'); 
-        $this->loadRoutesFrom($routesPath, 'adminspringcms');
-    }   
+       $this->loadRoutesFrom($routesPath, $this->_packageTag);
+    }
+    private function loadTranslations()
+    {
+      $resourcesPath = $this->packagePath('resources/lang');
+      $this->loadTranslationsFrom( $resourcesPath,$this->_packageTag);
+    }
+
     private function packagePath($path)
     {
         return __DIR__."/../$path";
     }
+
+
 
     /**
      * Merge the given configuration with the existing configuration.
